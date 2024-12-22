@@ -3,6 +3,7 @@ import ChatBubble from "./components/ChatBubble";
 
 const App = () => {
   const [message, setMessage] = useState<string[]>([]);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   function removeMessage(index: number) {
     setMessage((prev) => prev.filter((_, i) => i !== index));
@@ -18,6 +19,13 @@ const App = () => {
       }
     }
   }
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [message]);
 
   return (
     <div className="relative h-screen bg-green-500 p-4">
